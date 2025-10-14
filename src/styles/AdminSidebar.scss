@@ -1,0 +1,145 @@
+.admin-sidebar {
+  width: 260px;
+  background: #0F172A; // Deep navy — matches screenshot
+  color: #CBD5E1; // Light gray text
+  min-height: 100vh;
+  transition: width 0.3s ease;
+  border-right: 1px solid #1E293B;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+
+  &.collapsed {
+    width: 80px;
+    .logo-text,
+    span,
+    .logout-btn span {
+      display: none;
+    }
+    .logo-icon {
+      margin: 0 auto;
+    }
+  }
+
+  /* Logo Section */
+  .logo-section {
+    text-align: center;
+    padding: 20px 0;
+
+    .logo-icon {
+      background: #3B82F6; // Bright blue
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-text {
+      h2 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #FFFFFF;
+        margin: 10px 0 0;
+      }
+      p {
+        font-size: 13px;
+        opacity: 0.8;
+        color: #94A3B8;
+        margin: 0;
+      }
+    }
+  }
+
+  /* Navigation Menu */
+  .sidebar-menu {
+    flex: 1;
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 12px; // ✅ Space between icon and text
+        padding: 10px 20px;
+        border-radius: 8px;
+        transition: background 0.2s;
+
+        &:hover {
+          background: #1E293B;
+        }
+
+        svg {
+          color: #94A3B8;
+        }
+
+        span {
+          font-size: 15px;
+          font-weight: 500;
+          color: #CBD5E1;
+        }
+
+        /* Active Item Highlight */
+        &.active {
+          background: #3B82F6;
+          svg {
+            color: white;
+          }
+          span {
+            color: white;
+          }
+        }
+
+        /* Remove underline from links */
+        a {
+          text-decoration: none;
+          color: inherit;
+          display: flex;
+          align-items: center;
+          gap: 12px; // ✅ Space between icon and text
+          width: 100%;
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+
+  /* Logout Section */
+  .logout-section {
+    margin-top: auto;
+    padding: 20px;
+    border-top: 1px solid #1E293B;
+
+    .logout-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: none;
+      border: none;
+      color: #ffffff; // Changed to white text
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background 0.2s ease;
+
+      svg {
+        color: #ffffff; // Changed to white icon
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1); // Light white on hover
+      }
+
+      text-decoration: none;
+    }
+  }
+}

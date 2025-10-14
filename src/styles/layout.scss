@@ -1,0 +1,22 @@
+/* src/styles/Layout.scss */
+
+.layout-container {
+  display: flex;
+  min-height: 100vh; /* full screen height */
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #0b132b;
+  color: white;
+  flex-shrink: 0; /* prevent sidebar from shrinking */
+  position: relative; /* not absolute */
+  z-index: 1;
+}
+
+.main-content {
+  flex: 1;
+  background-color: #f8f9fc;
+  padding: 20px;
+  overflow-y: auto;
+}

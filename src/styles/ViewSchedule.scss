@@ -1,0 +1,156 @@
+// src/styles/ViewSchedule.scss
+
+.view-schedule-page {
+  padding: 24px;
+  background: #f8fafc;
+  min-height: 100vh;
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 0 0 4px 0;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: #6b7280;
+      margin: 0;
+    }
+
+    .manage-btn {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: #2563eb;
+      }
+    }
+  }
+
+  .week-schedule-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 24px;
+  }
+
+  .section-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 4px;
+  }
+
+  .section-subtitle {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 20px;
+  }
+
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: 100px repeat(5, 1fr); /* Time + 5 days */
+    gap: 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+
+    .grid-header,
+    .grid-row {
+      display: contents; // Allows grid to work with divs
+    }
+
+    .time-cell {
+      background: #f8fafc;
+      padding: 12px 16px;
+      font-weight: 600;
+      color: #6b7280;
+      border-right: 1px solid #e2e8f0;
+    }
+
+    .day-cell {
+      background: #f8fafc;
+      padding: 12px 16px;
+      text-align: center;
+      font-weight: 600;
+      color: #6b7280;
+      border-right: 1px solid #e2e8f0;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    .schedule-cell {
+      padding: 8px 12px;
+      border-right: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 60px;
+
+      &:last-child {
+        border-right: none;
+      }
+
+      .student-pill {
+        background: #dbeafe;
+        color: #1d4ed8;
+        border: 1px solid #3b82f6;
+        border-radius: 6px;
+        padding: 4px 8px;
+        font-size: 13px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+
+        &::before {
+          content: "";
+          display: block;
+          width: 4px;
+          height: 12px;
+          background: #3b82f6;
+          border-radius: 2px;
+          margin-right: 4px;
+        }
+      }
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .view-schedule-page {
+    padding: 16px;
+  }
+
+  .schedule-grid {
+    grid-template-columns: 80px repeat(5, 1fr);
+
+    .time-cell,
+    .day-cell,
+    .schedule-cell {
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+
+    .student-pill {
+      padding: 4px 6px;
+      font-size: 12px;
+    }
+  }
+}

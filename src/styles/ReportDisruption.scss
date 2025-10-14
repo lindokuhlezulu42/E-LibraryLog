@@ -1,0 +1,131 @@
+.report-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 48px 20px;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+.report-card {
+  background: #ffffff;
+  padding: 32px 36px;
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.1);
+  width: 100%;
+  max-width: 540px;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.form-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #0f172a;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 28px;
+
+  .icon {
+    color: #f59e0b;
+    font-size: 24px;
+  }
+}
+
+.report-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    label {
+      font-weight: 600;
+      color: #1e293b;
+      font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 14px;
+      color: #334155;
+      background: #f8fafc;
+      width: 100%;
+      resize: none;
+      transition: border 0.3s ease, box-shadow 0.3s ease;
+
+      &:focus {
+        border-color: #3b82f6;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      }
+
+      &::placeholder {
+        color: #94a3b8;
+      }
+    }
+
+    .input-with-icon {
+      display: flex;
+      align-items: center;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding-left: 10px;
+      transition: border 0.3s ease;
+
+      input {
+        border: none;
+        outline: none;
+        background: transparent;
+        padding: 12px;
+        flex: 1;
+      }
+
+      &:focus-within {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      }
+    }
+  }
+
+  .submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    transition: background 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    svg {
+      color: white;
+    }
+  }
+}

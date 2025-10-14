@@ -1,0 +1,199 @@
+.report-in-out-page {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #f9fafb;
+  min-height: 100vh;
+
+  h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+    color: #1f2937;
+  }
+
+  p {
+    color: #6b7280;
+    margin-bottom: 24px;
+  }
+
+  .status-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 24px;
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+
+      h2 {
+        font-size: 18px;
+        margin: 0;
+        color: #1f2937;
+      }
+
+      .status-badge {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+
+        &.working {
+          background: #10b981;
+          color: white;  // ✅ updated
+        }
+
+        &.not-reported {
+          background: #3B82F6;
+          color: white;  // ✅ updated
+        }
+      }
+    }
+
+    .status-content {
+      text-align: center;
+      padding: 24px 0;
+      color: #1f2937;
+
+      .clock-icon {
+        color: #9ca3af;
+        margin-bottom: 16px;
+      }
+
+      h3 {
+        font-size: 20px;
+        margin: 0 0 8px 0;
+      }
+
+      p {
+        color: #6b7280;
+        font-size: 14px;
+        margin: 0;
+      }
+    }
+
+    .action-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+
+      button {
+        padding: 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      .report-in-btn,
+      .report-out-btn {
+        background: #3B82F6;  // ✅ button background
+        color: white;
+
+        &:hover:not(:disabled) {
+          background: #2563eb; // slightly darker on hover
+        }
+      }
+    }
+  }
+
+  .activity-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+    h2 {
+      font-size: 18px;
+      margin: 0 0 16px 0;
+      color: #1f2937;
+    }
+
+    .no-activity {
+      text-align: center;
+      padding: 24px 0;
+      color: #9ca3af;
+
+      svg {
+        margin-bottom: 16px;
+      }
+
+      p {
+        font-size: 14px;
+        margin: 0;
+      }
+    }
+
+    .activity-log {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .log-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px;
+        background: #f8fafc;
+        border-radius: 8px;
+        color: #1f2937;
+        font-size: 14px;
+
+        svg {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+  }
+
+  .status {
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+
+    &.success {
+      background: #d1fae5;
+      color: #059669;
+      border: 1px solid #10b981;
+    }
+
+    &.error {
+      background: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #ef4444;
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .report-in-out-page {
+    padding: 16px;
+  }
+
+  .status-card {
+    .action-buttons {
+      grid-template-columns: 1fr;
+    }
+  }
+}
