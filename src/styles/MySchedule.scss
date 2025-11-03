@@ -1,129 +1,243 @@
-// src/styles/MySchedule.scss
-.my-schedule-page {
-  padding: 24px;
-  max-width: 1200px;
-  margin: 0 auto;
-  background: #f9fafb;
-  min-height: 100vh;
+/* src/styles/MySchedule.scss */
 
-  h1 {
-    font-size: 28px;
-    margin-bottom: 8px;
-    color: #1f2937;
+:root {
+  --brand: #3a86ff;         /* Changed brand to a nice blue */
+  --brand-dark: #265ecc;    /* Darker blue for hover */
+  --text: #222;
+  --bg: #fff;
+  --muted: #bbb;
+  --today-bg: #e6f0ff;
+  --selected-bg: #c5d2ff;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+}
+
+.ms-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.ms-content {
+  background: #f9f9fb;
+  border-radius: 8px;
+  box-shadow: 0 2px 7px rgb(0 0 0 / 0.1);
+  padding: 1rem 2rem 2rem;
+}
+
+.schedule-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-head {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  .back {
+    font-size: 2rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0 1rem 0 0;
   }
 
-  p {
-    color: #6b7280;
-    margin-bottom: 24px;
+  h2 {
+    flex-grow: 1;
+    font-weight: 600;
+    margin: 0;
+    text-align: center; /* Keep header centered */
   }
 
-  .schedule-container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  .ghost {
+    width: 36px;
   }
+}
 
-  .schedule-item {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+.calendar-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.1);
+  margin-bottom: 2rem;
+
+  .month-row {
     display: flex;
     align-items: center;
-    gap: 16px;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
 
-    .day-badge {
-      background: #f3f4f6;
-      color: #374151;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .schedule-details {
-      flex: 1;
-
-      h3 {
-        font-size: 18px;
-        margin: 0 0 8px 0;
-        color: #1f2937;
-      }
-
-      .info-row {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        color: #6b7280;
-        font-size: 14px;
-        margin-bottom: 4px;
-
-        .icon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 20px;
-          height: 20px;
-        }
-      }
-    }
-
-    .status-badge {
-      background: #3B82F6;
+    .nav {
+      background: var(--brand);
+      border: none;
       color: white;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 500;
+      font-size: 1.2rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background: var(--brand-dark);
+      }
+    }
+
+    .month-title {
+      font-weight: 600;
+      font-size: 1.1rem;
     }
   }
 
-  .summary-cards {
+  .weekdays {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 16px;
-    margin-top: 24px;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--muted);
 
-    .summary-card {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    .w {
       text-align: center;
+    }
+  }
 
-      h4 {
-        font-size: 14px;
-        color: #6b7280;
-        margin: 0 0 8px 0;
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.2rem;
+
+    .cell {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      height: 60px;
+      padding: 0.3rem 0.4rem;
+      font-size: 0.9rem;
+      color: var(--text);
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+
+      &.muted {
+        color: var(--muted);
       }
 
-      .value {
-        font-size: 28px;
+      &.selected {
+        background: var(--selected-bg);
+        border-color: var(--brand);
         font-weight: 600;
-        color: #1f2937;
-        margin: 0;
+      }
+
+      &.today {
+        background: var(--today-bg);
+        border-color: var(--brand-dark);
+      }
+
+      .num {
+        font-weight: 600;
+      }
+
+      .dot {
+        width: 6px;
+        height: 6px;
+        background: var(--brand);
+        border-radius: 50%;
+        position: absolute;
+        bottom: 6px;
+        right: 6px;
+      }
+    }
+
+    .blank {
+      background: transparent;
+      border: none;
+      pointer-events: none;
+    }
+  }
+}
+
+.list-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.1);
+  margin-bottom: 2rem;
+
+  h3 {
+    margin-top: 0;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .empty {
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .shift-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      flex-direction: column;
+
+      &.is-selected {
+        background: var(--selected-bg);
+      }
+
+      .date {
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+      }
+
+      .meta {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.9rem;
+        color: var(--muted);
+
+        .time,
+        .where {
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+        }
       }
     }
   }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .my-schedule-page {
-    padding: 16px;
-  }
+/* WEEKLY SCHEDULE BUTTON STYLING AND POSITIONING */
+.weekly-schedule-container {
+  margin-top: 2rem;
+  text-align: left; /* Move button to left */
+  
+  button {
+    background: var(--brand);  /* Blue */
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.75rem 2.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 7px rgb(0 0 0 / 0.2);
+    transition: background 0.3s ease;
 
-  .schedule-item {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-
-    .day-badge {
-      align-self: flex-start;
+    &:hover {
+      background: var(--brand-dark); /* Darker blue */
     }
-  }
-
-  .summary-cards {
-    grid-template-columns: 1fr;
   }
 }

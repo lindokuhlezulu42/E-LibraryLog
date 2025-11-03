@@ -1,111 +1,120 @@
+/* Admin Sidebar */
 .admin-sidebar {
   width: 260px;
-  background: #0F172A; // Deep navy — matches screenshot
-  color: #CBD5E1; // Light gray text
+  background: #003366; // darker blue
+  color: white;
   min-height: 100vh;
-  transition: width 0.3s ease;
-  border-right: 1px solid #1E293B;
   display: flex;
   flex-direction: column;
   padding: 24px 0;
+  border-right: 1px solid #1E293B;
+  transition: width 0.3s ease;
+  position: relative; // added to position toggle at top
 
-  &.collapsed {
-    width: 80px;
-    .logo-text,
-    span,
-    .logout-btn span {
-      display: none;
+  /* Toggle Button moved to top */
+  .toggle-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+
+    svg {
+      width: 28px;
+      height: 28px;
     }
-    .logo-icon {
-      margin: 0 auto;
+
+    &:hover {
+      opacity: 0.8;
     }
   }
 
   /* Logo Section */
   .logo-section {
     text-align: center;
-    padding: 20px 0;
+    padding: 40px 0 20px;  // pushed down for toggle space
+    position: relative;
 
     .logo-icon {
-      background: #3B82F6; // Bright blue
+      background: #4e6ba1;
       border-radius: 50%;
-      width: 70px;
-      height: 70px;
+      width: 60px;
+      height: 60px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: center;
+
+      svg {
+        width: 36px;
+        height: 36px;
+      }
     }
 
     .logo-text {
+      margin-top: 10px;
+
       h2 {
-        font-size: 20px;
+        font-size: 1.4rem;
         font-weight: 700;
-        color: #FFFFFF;
-        margin: 10px 0 0;
+        color: #ffffff;
+        margin: 0;
       }
+
       p {
         font-size: 13px;
         opacity: 0.8;
-        color: #94A3B8;
+        color: white;
         margin: 0;
       }
     }
   }
 
-  /* Navigation Menu */
+  /* Sidebar Menu */
   .sidebar-menu {
     flex: 1;
-
     ul {
       list-style: none;
       padding: 0;
+      margin: 0;
 
       li {
-        display: flex;
-        align-items: center;
-        gap: 12px; // ✅ Space between icon and text
-        padding: 10px 20px;
-        border-radius: 8px;
-        transition: background 0.2s;
-
-        &:hover {
-          background: #1E293B;
-        }
-
-        svg {
-          color: #94A3B8;
-        }
-
-        span {
-          font-size: 15px;
-          font-weight: 500;
-          color: #CBD5E1;
-        }
-
-        /* Active Item Highlight */
-        &.active {
-          background: #3B82F6;
-          svg {
-            color: white;
-          }
-          span {
-            color: white;
-          }
-        }
-
-        /* Remove underline from links */
         a {
-          text-decoration: none;
-          color: inherit;
           display: flex;
           align-items: center;
-          gap: 12px; // ✅ Space between icon and text
-          width: 100%;
+          gap: 12px;
+          padding: 12px 20px;
+          color: #ffffff;
+          font-size: 15px;
+          font-weight: 500;
+          text-decoration: none;
+          border-radius: 10px;
+          margin: 4px 12px;
+          transition: background 0.25s ease, color 0.25s ease;
+
+          svg {
+            width: 26px;
+            height: 26px;
+          }
 
           &:hover {
-            text-decoration: none;
+            background: #2e3a50;
+            color: #ffffff;
           }
+        }
+
+        /* Active link styling */
+       &.active a {
+          background: rgb(32, 95, 155);
+          color: white;
+          font-weight: 500;
         }
       }
     }
@@ -115,7 +124,7 @@
   .logout-section {
     margin-top: auto;
     padding: 20px;
-    border-top: 1px solid #1E293B;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
 
     .logout-btn {
       display: flex;
@@ -123,23 +132,70 @@
       gap: 10px;
       background: none;
       border: none;
-      color: #ffffff; // Changed to white text
+      color: #ffffff;
       font-size: 15px;
       font-weight: 500;
       cursor: pointer;
-      padding: 8px 12px;
-      border-radius: 8px;
+      padding: 10px 12px;
+      border-radius: 10px;
       transition: background 0.2s ease;
 
       svg {
-        color: #ffffff; // Changed to white icon
+        color: #ffffff;
+        width: 26px;
+        height: 26px;
       }
 
       &:hover {
-        background: rgba(255, 255, 255, 0.1); // Light white on hover
+        background: #424857;
       }
+    }
+  }
 
-      text-decoration: none;
+  /* Collapse/Expand Styling */
+  &.collapsed {
+    width: 80px;
+
+    .logo-text {
+      display: none;
+    }
+
+    .sidebar-menu li a span {
+      display: none;
+    }
+
+    .logout-btn span {
+      display: none;
+    }
+
+    .sidebar-menu li a {
+      justify-content: center;
+      padding: 12px 0; // keep same vertical spacing
+    }
+
+    .toggle-btn {
+      right: 50%;
+      transform: translate(50%, 0); // center horizontally when collapsed
+      svg {
+        width: 26px;
+        height: 26px; // same size as expanded
+      }
+    }
+
+    .sidebar-menu li a svg {
+      width: 26px;
+      height: 26px; // same size as expanded
+    }
+
+    .logout-btn svg {
+      width: 26px;
+      height: 26px; // same size as expanded
+    }
+
+    /* Active state when collapsed */
+    .sidebar-menu li.active a {
+      box-shadow: inset 5px 0 0 #00bfff;
+      background: rgb(32, 95, 155); // updated active color
     }
   }
 }

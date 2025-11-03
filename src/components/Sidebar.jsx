@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "../styles/Sidebar.scss";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import LayoutDashboard from "./icons/LayoutDashboard";
-import { FileText, ArrowLeftRight, Calendar, Upload,ToggleRight,ToggleLeft,History } from "lucide-react";
+import { FileText, ArrowLeftRight, Calendar, Upload, ToggleRight, ToggleLeft, History, Bell } from "lucide-react";
 
 function Sidebar() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(true);
 
   const menuItems = [
@@ -15,14 +16,20 @@ function Sidebar() {
     { name: "Leave Request", path: "/leave", icon: <FileText size={24} /> },
     { name: "Shift Exchange", path: "/shift-exchange", icon: <ArrowLeftRight size={24} /> },
     { name: "Upload Timetable", path: "/upload-timetable", icon: <Upload size={24} /> },
+    // ✅ Added Notification link
+    { name: "Notifications", path: "/student-notifications", icon: <Bell size={24} /> },
   ];
+
+  const handleLogout = () => {
+    navigate("/");
+  };
 
   return (
     <aside className={`sidebar ${isOpen ? "open" : "closed"}`}>
       <div className="header">
         {isOpen && <h2>Student Portal</h2>}
         <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <ToggleLeft />: <ToggleRight />}
+          {isOpen ? <ToggleLeft /> : <ToggleRight />}
         </button>
       </div>
 
@@ -49,9 +56,9 @@ function Sidebar() {
 
       {isOpen && (
         <div className="sidebar-footer">
-          <button className="logout-btn">
+          <button className="logout-btn" onClick={handleLogout}>
             <span className="icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-log-out-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="m16 17 5-5-5-5"/>
                 <path d="M21 12H9"/>
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>

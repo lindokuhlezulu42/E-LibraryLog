@@ -1,3 +1,4 @@
+// src/pages/ReportInOut.jsx
 import React, { useState } from "react";
 import { CheckCircle, XCircle, Clock } from "lucide-react";
 import "../styles/ReportInOut.scss";
@@ -8,22 +9,46 @@ function ReportInOut() {
   const [lastReportOut, setLastReportOut] = useState(null);
   const [status, setStatus] = useState("");
 
+  // Function to notify admin
+  const notifyAdmin = (message) => {
+    const adminNotifications =
+      JSON.parse(localStorage.getItem("adminNotifications")) || [];
+    const newAdminNotification = {
+      id: Date.now(),
+      message,
+      timestamp: new Date().toLocaleString(),
+      read: false,
+    };
+    localStorage.setItem(
+      "adminNotifications",
+      JSON.stringify([newAdminNotification, ...adminNotifications])
+    );
+  };
+
   const handleReportIn = () => {
     const now = new Date().toLocaleTimeString();
     setLastReportIn(now);
     setIsWorking(true);
     setStatus("✅ You are now clocked in!");
+
+    // Notify admin
+    notifyAdmin(`Student reported IN at ${now}`);
   };
 
   const handleReportOut = () => {
     if (!isWorking) {
-      return setStatus("❌ You are not currently working. Please report in first.");
+      return setStatus(
+        "❌ You are not currently working. Please report in first."
+      );
     }
 
     const now = new Date().toLocaleTimeString();
     setLastReportOut(now);
     setIsWorking(false);
     setStatus("✅ You are now clocked out!");
+
+    // Notify admin
+    notifyAdmin(`Student reported OUT at ${now}`);
   };
 
   return (
@@ -35,26 +60,34 @@ function ReportInOut() {
       <div className="status-card">
         <div className="card-header">
           <h2>Current Status</h2>
-          <span className={`status-badge ${isWorking ? 'working' : 'not-reported'}`}>
-            {isWorking ? 'Working' : 'Not Reported'}
+          <span
+            className={`status-badge ${
+              isWorking ? "working" : "not-reported"
+            }`}
+          >
+            {isWorking ? "Working" : "Not Reported"}
           </span>
         </div>
 
         <div className="status-content">
           <Clock size={48} className="clock-icon" />
-          <h3>{isWorking ? 'Currently Working' : 'Not Currently Working'}</h3>
-          <p>{isWorking ? 'You are actively tracking your hours.' : 'Report in to start tracking your hours'}</p>
+          <h3>{isWorking ? "Currently Working" : "Not Currently Working"}</h3>
+          <p>
+            {isWorking
+              ? "You are actively tracking your hours."
+              : "Report in to start tracking your hours"}
+          </p>
         </div>
 
         <div className="action-buttons">
-          <button 
+          <button
             className="report-in-btn"
             onClick={handleReportIn}
             disabled={isWorking}
           >
             <CheckCircle size={20} color="white" /> Report In
           </button>
-          <button 
+          <button
             className="report-out-btn"
             onClick={handleReportOut}
             disabled={!isWorking}
@@ -67,7 +100,7 @@ function ReportInOut() {
       {/* Today's Activity Card */}
       <div className="activity-card">
         <h2>Today's Activity</h2>
-        
+
         {lastReportIn || lastReportOut ? (
           <div className="activity-log">
             {lastReportIn && (
@@ -92,7 +125,11 @@ function ReportInOut() {
       </div>
 
       {/* Status Message */}
-      {status && <p className={`status ${status.startsWith('✅') ? 'success' : 'error'}`}>{status}</p>}
+      {status && (
+        <p className={`status ${status.startsWith("✅") ? "success" : "error"}`}>
+          {status}
+        </p>
+      )}
     </div>
   );
 }

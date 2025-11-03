@@ -1,156 +1,198 @@
-// src/styles/ViewSchedule.scss
-
-.view-schedule-page {
-  padding: 24px;
-  background: #f8fafc;
+.view-schedule {
+  padding: 2rem;
+  background: #f9fafb;
   min-height: 100vh;
+  font-family: "Inter", sans-serif;
 
-  .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 24px;
-
-    .page-title {
-      font-size: 28px;
-      font-weight: 700;
-      color: #1e293b;
-      margin: 0 0 4px 0;
-    }
-
-    .page-subtitle {
-      font-size: 14px;
-      color: #6b7280;
-      margin: 0;
-    }
-
-    .manage-btn {
-      background: #3b82f6;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s ease;
-
-      &:hover {
-        background: #2563eb;
-      }
-    }
-  }
-
-  .week-schedule-container {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    padding: 24px;
-  }
-
-  .section-title {
-    font-size: 24px;
+  h1 {
+    text-align: center;
+    color: #004e97;
+    margin-bottom: 2rem;
     font-weight: 700;
-    color: #1e293b;
-    margin-bottom: 4px;
   }
 
-  .section-subtitle {
-    font-size: 14px;
-    color: #6b7280;
-    margin-bottom: 20px;
+  .view-section,
+  .schedule-draft,
+  .upload-section,
+  .all-timetables-view {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
   }
 
-  .schedule-grid {
-    display: grid;
-    grid-template-columns: 100px repeat(5, 1fr); /* Time + 5 days */
-    gap: 8px;
-    border: 1px solid #e2e8f0;
+  h2 {
+    color: #004e97;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .primary-btn,
+  .secondary-btn,
+  .upload-btn,
+  .download-btn {
+    border: none;
     border-radius: 8px;
-    overflow: hidden;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
 
-    .grid-header,
-    .grid-row {
-      display: contents; // Allows grid to work with divs
+  .primary-btn,
+  .upload-btn,
+  .download-btn {
+    background: #004e97;
+    color: #fff;
+
+    &:hover {
+      background: #003a73;
     }
+  }
 
-    .time-cell {
-      background: #f8fafc;
-      padding: 12px 16px;
-      font-weight: 600;
-      color: #6b7280;
-      border-right: 1px solid #e2e8f0;
+  .secondary-btn {
+    background: #e0e7ff;
+    color: #004e97;
+
+    &:hover {
+      background: #c7d2fe;
     }
+  }
 
-    .day-cell {
-      background: #f8fafc;
-      padding: 12px 16px;
+  .timetable-grid {
+    overflow-x: auto;
+    margin-top: 1rem;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
       text-align: center;
-      font-weight: 600;
-      color: #6b7280;
-      border-right: 1px solid #e2e8f0;
+      font-size: 0.95rem;
 
-      &:last-child {
-        border-right: none;
-      }
-    }
-
-    .schedule-cell {
-      padding: 8px 12px;
-      border-right: 1px solid #e2e8f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 60px;
-
-      &:last-child {
-        border-right: none;
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 10px;
       }
 
-      .student-pill {
-        background: #dbeafe;
-        color: #1d4ed8;
-        border: 1px solid #3b82f6;
-        border-radius: 6px;
-        padding: 4px 8px;
-        font-size: 13px;
+      th {
+        background: #004e97;
+        color: #fff;
         font-weight: 600;
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
+      }
 
-        &::before {
-          content: "";
-          display: block;
-          width: 4px;
-          height: 12px;
-          background: #3b82f6;
-          border-radius: 2px;
-          margin-right: 4px;
+      .day {
+        background: #f1f5f9;
+        font-weight: 600;
+      }
+
+      input {
+        width: 100%;
+        border: none;
+        outline: none;
+        text-align: center;
+        padding: 6px;
+        font-size: 0.95rem;
+        background: transparent;
+        transition: background 0.2s ease;
+
+        &:focus {
+          background: #eef2ff;
+          border-radius: 6px;
         }
       }
     }
   }
-}
 
-/* Responsive */
-@media (max-width: 768px) {
-  .view-schedule-page {
-    padding: 16px;
+  .draft-actions {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
   }
 
-  .schedule-grid {
-    grid-template-columns: 80px repeat(5, 1fr);
+  .upload-section {
+    text-align: center;
 
-    .time-cell,
-    .day-cell,
-    .schedule-cell {
-      padding: 8px 12px;
-      font-size: 13px;
+    input[type="file"] {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .all-timetables-view {
+    .timetable-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
     }
 
-    .student-pill {
-      padding: 4px 6px;
-      font-size: 12px;
+    .assistant-timetable-card {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      h3 {
+        color: #004e97;
+        text-align: center;
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+
+      .timetable-grid {
+        overflow-x: auto;
+
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          text-align: center;
+
+          th,
+          td {
+            border: 1px solid #ddd;
+            padding: 10px;
+          }
+
+          th {
+            background: #004e97;
+            color: #fff;
+            font-weight: 600;
+          }
+
+          .day {
+            background: #f1f5f9;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    table {
+      font-size: 0.9rem;
+    }
+
+    .draft-actions {
+      flex-direction: column;
+      align-items: stretch;
+
+      button {
+        width: 100%;
+      }
     }
   }
 }

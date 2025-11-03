@@ -1,53 +1,69 @@
-// src/pages/ViewLeave.jsx
-import React from "react";
-import { Calendar, FileText } from "lucide-react";
+import React, { useState, useEffect } from "react";
 import "../styles/ViewLeave.scss";
 
 function ViewLeave() {
-  // Mock data — replace with API call later
-  const leaveRequests = [
-    {
-      id: 1,
-      student: "John Doe",
-      startDate: "2025-02-01",
-      endDate: "2025-02-03",
-      reason: "Medical appointment",
-      status: "pending",
-    },
-    {
-      id: 2,
-      student: "Jane Smith",
-      startDate: "2025-02-05",
-      endDate: "2025-02-05",
-      reason: "Family emergency",
-      status: "pending",
-    },
-    {
-      id: 3,
-      student: "Mike Johnson",
-      startDate: "2025-01-20",
-      endDate: "2025-01-22",
-      reason: "Personal reasons",
-      status: "approved",
-    },
-    {
-      id: 4,
-      student: "Sarah Williams",
-      startDate: "2025-02-10",
-      endDate: "2025-02-12",
-      reason: "Academic conference",
-      status: "pending",
-    },
-  ];
+  const [leaveRequests, setLeaveRequests] = useState([]);
 
-  const handleApprove = (id) => {
-    console.log("Approve leave request:", id);
-    // TODO: Add API call
+  // ✅ Load leave requests from localStorage
+  useEffect(() => {
+    const storedRequests = JSON.parse(localStorage.getItem("leaveRequests")) || [];
+    setLeaveRequests(storedRequests);
+  }, []);
+
+  // ✅ Send student notification
+  const sendNotification = (studentEmail, status, reason, startDate, endDate) => {
+    const existing = JSON.parse(localStorage.getItem("studentNotifications")) || [];
+    const newNotification = {
+      id: Date.now(),
+      title: "Leave Request Update",
+      message: `Your leave request from ${startDate} to ${endDate} has been ${status.toUpperCase()}. Reason: ${reason}`,
+      timestamp: new Date().toLocaleString(),
+      read: false,
+    };
+    const updated = [newNotification, ...existing];
+    localStorage.setItem("studentNotifications", JSON.stringify(updated));
   };
 
+  // ✅ Approve handler
+  const handleApprove = (id) => {
+    const confirmApprove = window.confirm("Are you sure you want to approve this leave request?");
+    if (!confirmApprove) return;
+
+    const approvedRequest = leaveRequests.find((req) => req.id === id);
+    if (!approvedRequest) return;
+
+    sendNotification(
+      approvedRequest.email,
+      "approved",
+      approvedRequest.reason,
+      approvedRequest.startDate,
+      approvedRequest.endDate
+    );
+
+    const updated = leaveRequests.filter((req) => req.id !== id);
+    setLeaveRequests(updated);
+    localStorage.setItem("leaveRequests", JSON.stringify(updated));
+  };
+
+  // ✅ Reject handler
   const handleReject = (id) => {
-    console.log("Reject leave request:", id);
-    // TODO: Add API call
+    const confirmReject = window.confirm("Are you sure you want to reject this leave request?");
+    if (!confirmReject) return;
+
+    const rejectedRequest = leaveRequests.find((req) => req.id === id);
+    if (!rejectedRequest) return;
+
+    sendNotification(
+      rejectedRequest.email,
+      "rejected",
+      rejectedRequest.reason,
+      rejectedRequest.startDate,
+      rejectedRequest.endDate
+    );
+
+    const updated = leaveRequests.filter((req) => req.id !== id);
+    setLeaveRequests(updated);
+    localStorage.setItem("leaveRequests", JSON.stringify(updated));
   };
 
   return (
@@ -59,57 +75,52 @@ function ViewLeave() {
         <table className="leave-table">
           <thead>
             <tr>
-              <th>Student</th>
+              <th>Email</th>
               <th>Start Date</th>
               <th>End Date</th>
               <th>Reason</th>
+              <th>Type</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {leaveRequests.map((request) => (
-              <tr key={request.id}>
-                <td>
-                  <div className="student-info">
-                    <FileText size={16} color="#94a3b8" />
-                    <span>{request.student}</span>
-                  </div>
-                </td>
-                <td>
-                  <div className="date-info">
-                    <Calendar size={16} color="#94a3b8" />
-                    <span>{request.startDate}</span>
-                  </div>
-                </td>
-                <td>
-                  <div className="date-info">
-                    <Calendar size={16} color="#94a3b8" />
-                    <span>{request.endDate}</span>
-                  </div>
-                </td>
-                <td>{request.reason}</td>
-                <td>
-                  <span className={`status-badge ${request.status}`}>
-                    {request.status}
-                  </span>
-                </td>
-                <td>
-                  <button 
-                    className="approve-btn" 
-                    onClick={() => handleApprove(request.id)}
-                  >
-                    Approve
-                  </button>
-                  <button 
-                    className="reject-btn" 
-                    onClick={() => handleReject(request.id)}
-                  >
-                    Reject
-                  </button>
+            {leaveRequests.length === 0 ? (
+              <tr>
+                <td colSpan="7" style={{ textAlign: "center" }}>
+                  No leave requests yet.
                 </td>
               </tr>
-            ))}
+            ) : (
+              leaveRequests.map((request) => (
+                <tr key={request.id}>
+                  <td>{request.email}</td>
+                  <td>{request.startDate}</td>
+                  <td>{request.endDate}</td>
+                  <td>{request.reason}</td>
+                  <td>{request.type}</td>
+                  <td>
+                    <span className={`status-badge ${request.status}`}>
+                      {request.status}
+                    </span>
+                  </td>
+                  <td>
+                    <button
+                      className="approve-btn"
+                      onClick={() => handleApprove(request.id)}
+                    >
+                      Approve
+                    </button>
+                    <button
+                      className="reject-btn"
+                      onClick={() => handleReject(request.id)}
+                    >
+                      Reject
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

@@ -1,0 +1,124 @@
+.student-notifications-page-wrapper {
+  display: flex;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+  .student-notifications-page {
+    flex: 1; // take remaining width
+    background: #f8fcff;
+    padding: 40px;
+     align-items: center;
+
+    /* Add left margin to avoid overlap with fixed sidebar */
+    margin-left: 250px;
+
+    .page-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #004E97;
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 25px;
+    }
+
+    .empty-msg {
+      text-align: center;
+      color: #888;
+      font-size: 18px;
+      margin-top: 60px;
+    }
+
+    .clear-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: 1px solid #dde6f1;
+      border-radius: 8px;
+      padding: 6px 12px;
+      color: #cc0000;
+      cursor: pointer;
+      margin-bottom: 15px;
+      transition: background 0.3s;
+
+      &:hover {
+        background: #ffeaea;
+      }
+    }
+
+    .notification-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .notification-item {
+      background: #fff;
+      border: 1px solid #dde6f1;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      transition: all 0.3s ease;
+
+      &.unread {
+        border-left: 5px solid #004E97;
+        background: #eef6ff;
+      }
+
+      &:hover {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .notif-info {
+        max-width: 70%;
+
+        h3 {
+          font-size: 18px;
+          color: #004E97;
+          margin-bottom: 8px;
+        }
+
+        p {
+          font-size: 15px;
+          color: #444;
+          margin-bottom: 6px;
+        }
+
+        .timestamp {
+          font-size: 13px;
+          color: #777;
+        }
+      }
+
+      .notif-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        button {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          border: none;
+          background: none;
+          cursor: pointer;
+          font-size: 14px;
+          padding: 5px 10px;
+          border-radius: 6px;
+          transition: background 0.3s;
+
+          &.mark-read-btn {
+            color: #004E97;
+            &:hover {
+              background: #e9f2ff;
+            }
+          }
+        }
+      }
+    }
+  }
+}

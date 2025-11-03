@@ -1,0 +1,53 @@
+/* AdminLayout + Sidebar responsive behavior */
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fc;
+}
+
+/* Sidebar controlled inside the layout.
+   When the layout has .sidebar-closed the collapsed styles apply. */
+.admin-layout .admin-sidebar {
+  width: 250px;
+  background: #063866;
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1000;
+  transition: width 0.25s ease;
+}
+
+/* collapsed */
+.admin-layout.sidebar-closed .admin-sidebar {
+  width: 80px;
+}
+
+/* Main content area adjusts based on sidebar width */
+.admin-layout .admin-main {
+  flex: 1;
+  margin-left: 250px; /* same as expanded sidebar width */
+  padding: 28px;
+  background-color: #f8f9fc;
+  overflow-y: auto;
+  height: 100vh;
+  transition: margin-left 0.25s ease;
+}
+
+/* When sidebar closed, shift content left */
+.admin-layout.sidebar-closed .admin-main {
+  margin-left: 80px;
+}
+
+/* Optional small breakpoint (keeps mobile behavior) */
+@media (max-width: 900px) {
+  .admin-layout .admin-sidebar {
+    transform: translateX(-10px);
+  }
+  .admin-layout .admin-main {
+    margin-left: 80px;
+  }
+}

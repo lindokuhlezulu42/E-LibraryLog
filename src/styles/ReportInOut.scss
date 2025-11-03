@@ -43,12 +43,12 @@
 
         &.working {
           background: #10b981;
-          color: white;  // ✅ updated
+          color: white;
         }
 
         &.not-reported {
-          background: #3B82F6;
-          color: white;  // ✅ updated
+          background: #004E97;  // updated
+          color: white;
         }
       }
     }
@@ -105,11 +105,11 @@
 
       .report-in-btn,
       .report-out-btn {
-        background: #3B82F6;  // ✅ button background
+        background: #004E97;  // updated
         color: white;
 
         &:hover:not(:disabled) {
-          background: #2563eb; // slightly darker on hover
+          background: darken(#004E97, 10%); // slightly darker hover
         }
       }
     }
@@ -160,6 +160,7 @@
         svg {
           width: 18px;
           height: 18px;
+          color: #004E97; // updated
         }
       }
     }

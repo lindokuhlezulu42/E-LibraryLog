@@ -1,0 +1,125 @@
+.schedule-wrapper {
+  padding: 2rem;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  max-width: 100%;
+  max-height: 100vh;
+  overflow-y: hidden;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+/* Container centers the grid */
+.schedule-container {
+  display: flex;
+  justify-content: center; /* center horizontally */
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+.schedule-grid {
+  display: grid;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  box-sizing: border-box;
+  width: fit-content;
+
+  /* Make columns narrower */
+  grid-template-columns: minmax(140px, 1fr) repeat(6, minmax(110px, 1fr));
+}
+
+.grid-header,
+.grid-row {
+  display: contents;
+}
+
+.cell {
+  padding: 0.5rem;
+  border-bottom: 1px solid #eee;
+  border-right: 1px solid #eee;
+  text-align: center;
+  font-size: 0.9rem;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.grid-header .cell {
+  font-weight: bold;
+  background-color: #f0f0f0;
+  border-bottom: 2px solid #ccc;
+  font-size: 0.85rem;
+  color: #333;
+}
+
+.time-header {
+  background-color: #e53935 !important;
+  color: white !important;
+}
+
+.time {
+  font-weight: bold;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* Day header colors */
+.day-header:nth-child(2) {
+  background-color: #2196f3 !important;
+  color: white !important;
+}
+
+.day-header:nth-child(3) {
+  background-color: #ffeb3b !important;
+  color: #000 !important;
+}
+
+.day-header:nth-child(4) {
+  background-color: #2196f3 !important;
+  color: white !important;
+}
+
+.day-header:nth-child(5) {
+  background-color: #e53935 !important;
+  color: #fff !important;
+}
+
+.day-header:nth-child(6) {
+  background-color: #ffeb3b !important;
+  color: #000 !important;
+}
+
+.day-header:nth-child(7) {
+  background-color: #2196f3 !important; /* Blue for Saturday */
+  color: white !important;
+}
+
+.cell div {
+  margin: 2px 0;
+}
+
+.cell strong {
+  color: #222;
+}
+
+.grid-row:last-child .cell {
+  border-bottom: none;
+}
+
+.cell:empty {
+  background-color: #fafafa;
+}

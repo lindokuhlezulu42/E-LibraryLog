@@ -1,0 +1,235 @@
+.student-assistant-hours-page {
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #f9fafb;
+  min-height: 100vh;
+  
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1f2937;
+    }
+    
+    .month-selector {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      
+      label {
+        font-size: 14px;
+        color: #374151;
+        font-weight: 500;
+      }
+      
+      select {
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        border: 1px solid #d1d5db;
+        background: white;
+        cursor: pointer;
+        
+        &:focus {
+          outline: none;
+          border-color: #004E97;
+          box-shadow: 0 0 0 2px rgba(0, 78, 151, 0.2);
+        }
+      }
+    }
+  }
+  
+  .hours-container {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    
+    .hours-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: #f8fafc;
+      border-radius: 8px 8px 0 0;
+      border-bottom: 1px solid #e5e7eb;
+      
+      .header-item {
+        font-size: 14px;
+        font-weight: 600;
+        color: #6b7280;
+        
+        &:first-child {
+          flex: 2;
+        }
+        
+        &:last-child {
+          flex: 1;
+          text-align: right;
+        }
+      }
+    }
+    
+    .hours-list {
+      .hours-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        border-bottom: 1px solid #e5e7eb;
+        
+        &:last-child {
+          border-bottom: none;
+        }
+        
+        .assistant-info {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          flex: 2;
+          
+          .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #e5e7eb;
+          }
+          
+          .assistant-name {
+            font-size: 16px;
+            color: #1f2937;
+            font-weight: 500;
+          }
+        }
+        
+        .hours-value {
+          font-size: 16px;
+          font-weight: 600;
+          color: #004E97;
+          text-align: right;
+          flex: 1;
+        }
+      }
+    }
+  }
+  
+  /* Loading State */
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #e5e7eb;
+      border-top: 4px solid #004E97;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 16px;
+    }
+    
+    p {
+      font-size: 16px;
+      color: #6b7280;
+    }
+  }
+  
+  /* Error State */
+  .error-message {
+    background: #fee2e2;
+    border: 1px solid #ef4444;
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+    
+    p {
+      font-size: 16px;
+      color: #dc2626;
+      margin-bottom: 16px;
+    }
+    
+    button {
+      background: #dc2626;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      
+      &:hover {
+        background: #b91c1c;
+      }
+    }
+  }
+}
+
+/* Animation for loading spinner */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .student-assistant-hours-page {
+    padding: 16px;
+    
+    .page-header {
+      flex-direction: column;
+      gap: 16px;
+      
+      .month-selector {
+        width: 100%;
+        
+        select {
+          width: 100%;
+        }
+      }
+    }
+    
+    .hours-container {
+      padding: 16px;
+      
+      .hours-header {
+        padding: 12px;
+        
+        .header-item {
+          font-size: 13px;
+        }
+      }
+      
+      .hours-list {
+        .hours-item {
+          padding: 12px;
+          
+          .assistant-info {
+            gap: 8px;
+            
+            .avatar {
+              width: 32px;
+              height: 32px;
+            }
+            
+            .assistant-name {
+              font-size: 14px;
+            }
+          }
+          
+          .hours-value {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,133 +1,181 @@
+
+
 // src/pages/ViewShiftExchange.jsx
-import React from "react";
-import { FileText, Clock, User, Calendar } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { FileText, User, Calendar, X } from "lucide-react";
 import "../styles/ViewShiftExchange.scss";
+import { useNavigate } from "react-router-dom";
 
 function ViewShiftExchange() {
-  // Mock data — replace with API call later
-  const shiftExchanges = [
-    {
-      id: 1,
-      requester: "John Doe",
-      date: "2025-02-15",
-      time: "09:00 - 17:00",
-      reason: "Medical appointment conflict",
-      status: "pending",
-    },
-    {
-      id: 2,
-      requester: "Jane Smith",
-      date: "2025-02-18",
-      time: "13:00 - 21:00",
-      reason: "Academic exam scheduled",
-      status: "pending",
-    },
-    {
-      id: 3,
-      requester: "Mike Johnson",
-      date: "2025-02-10",
-      time: "09:00 - 17:00",
-      reason: "Family event",
-      status: "approved",
-    },
-    {
-      id: 4,
-      requester: "Sarah Williams",
-      date: "2025-02-20",
-      time: "10:00 - 18:00",
-      reason: "Personal emergency",
-      status: "pending",
-    },
-  ];
+  const navigate = useNavigate();
+  const [shiftExchanges, setShiftExchanges] = useState([]);
+  const [selectedRequest, setSelectedRequest] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleApprove = (id) => {
-    console.log("Approve shift exchange:", id);
-    // TODO: Add API call
+  // 🧠 Fetch real shift exchange data live from localStorage
+  useEffect(() => {
+    const fetchData = () => {
+      const stored = JSON.parse(localStorage.getItem("shiftExchanges")) || [];
+      // Sort latest first
+      const sorted = stored.sort(
+        (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
+      );
+      setShiftExchanges(sorted);
+    };
+
+    fetchData();
+    const interval = setInterval(fetchData, 3000); // refresh every 3s
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleViewDetails = (request) => {
+    setSelectedRequest(request);
+    setIsModalOpen(true);
   };
 
-  const handleReject = (id) => {
-    console.log("Reject shift exchange:", id);
-    // TODO: Add API call
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedRequest(null);
   };
 
   return (
     <div className="shift-exchange-page">
-      <h1 className="page-title">Shift Exchange Requests</h1>
+      <h1 className="page-title">All Shift Exchanges</h1>
       <p className="page-subtitle">
-        Review shift exchange requests and find replacements
+        Manage shift swap requests between student assistants
       </p>
 
       <div className="exchange-table-container">
-        <h2 className="section-title">All Shift Exchanges</h2>
-        <p className="section-subtitle">
-          Manage shift swaps between student assistants
-        </p>
-
         <table className="exchange-table">
           <thead>
             <tr>
               <th>Requester</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Reason</th>
+              <th>Recipient</th>
+              <th>Your Shift</th>
+              <th>Their Shift</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {shiftExchanges.map((exchange) => (
-              <tr key={exchange.id}>
-                <td>
-                  <div className="student-info">
-                    <User size={16} color="#94a3b8" />
-                    <span>{exchange.requester}</span>
-                  </div>
-                </td>
-                <td>
-                  <div className="date-info">
-                    <Calendar size={16} color="#94a3b8" />
-                    <span>{exchange.date}</span>
-                  </div>
-                </td>
-                <td>
-                  <div className="time-info">
-                    <Clock size={16} color="#94a3b8" />
-                    <span>{exchange.time}</span>
-                  </div>
-                </td>
-                <td>
-                  <div className="reason-info">
-                    <FileText size={16} color="#94a3b8" />
-                    <span>{exchange.reason}</span>
-                  </div>
-                </td>
-                <td>
-                  <span className={`status-badge ${exchange.status}`}>
-                    {exchange.status}
-                  </span>
-                </td>
-                <td>
-                  {/* Always show Approve and Reject buttons */}
-                  <button
-                    className="approve-btn"
-                    onClick={() => handleApprove(exchange.id)}
-                  >
-                    Approve
-                  </button>
-                  <button
-                    className="reject-btn"
-                    onClick={() => handleReject(exchange.id)}
-                  >
-                    Reject
-                  </button>
+            {shiftExchanges.length === 0 ? (
+              <tr>
+                <td colSpan="6" style={{ textAlign: "center", color: "#888" }}>
+                  No shift exchanges yet.
                 </td>
               </tr>
-            ))}
+            ) : (
+              shiftExchanges.map((exchange) => (
+                <tr key={exchange.id}>
+                  <td>
+  <div className="student-info">
+    <User size={16} color="#6b7280" />
+    <span>student@tut.ac.za</span>
+  </div>
+</td>
+                  <td>
+                    <div className="student-info">
+                      <User size={16} color="#6b7280" />
+                      <span>{exchange.toEmail || exchange.to}</span>
+                    </div>
+                  </td>
+                  <td>
+                    {exchange.yourShift
+                      ? `${exchange.yourShift.date} ${exchange.yourShift.time}`
+                      : "—"}
+                  </td>
+                  <td>
+                    {exchange.theirShift
+                      ? `${exchange.theirShift.date} ${exchange.theirShift.time}`
+                      : "—"}
+                  </td>
+                  <td>
+                    <span
+                      className={`status-badge ${exchange.status.toLowerCase()}`}
+                    >
+                      {exchange.status}
+                    </span>
+                  </td>
+                  <td>
+                    <button
+                      className="view-details-btn"
+                      onClick={() => handleViewDetails(exchange)}
+                    >
+                      View Details
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
+
+      {/* Modal for Shift Exchange Details */}
+      {isModalOpen && selectedRequest && (
+        <div className="modal-overlay" onClick={handleCloseModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="close-btn" onClick={handleCloseModal}>
+              <X size={20} />
+            </button>
+
+            <h2 className="modal-title">Shift Exchange Details</h2>
+            <p className="modal-subtitle">Review the request</p>
+
+            <div className="modal-body">
+              <div className="detail-row">
+                <div className="detail-label">Requester</div>
+                <div className="detail-value">
+                  {selectedRequest.fromEmail || `${selectedRequest.from}@tut.ac.za`}
+                </div>
+              </div>
+<div className="detail-row">
+  <div className="detail-label">Requester</div>
+  <div className="detail-value">student@tut.ac.za</div>
+</div>
+
+              <div className="detail-row">
+                <div className="detail-label">Your Shift</div>
+                <div className="detail-value">
+                  {selectedRequest.yourShift
+                    ? `${selectedRequest.yourShift.date} • ${selectedRequest.yourShift.time} • ${selectedRequest.yourShift.location}`
+                    : "N/A"}
+                </div>
+              </div>
+
+              <div className="detail-row">
+                <div className="detail-label">Their Shift</div>
+                <div className="detail-value">
+                  {selectedRequest.theirShift
+                    ? `${selectedRequest.theirShift.date} • ${selectedRequest.theirShift.time} • ${selectedRequest.theirShift.location}`
+                    : "N/A"}
+                </div>
+              </div>
+
+              <div className="detail-row">
+                <div className="detail-label">Status</div>
+                <div className="detail-value">{selectedRequest.status}</div>
+              </div>
+
+              <div className="detail-row">
+                <div className="detail-label">Timestamp</div>
+                <div className="detail-value">
+                  {new Date(selectedRequest.timestamp).toLocaleString()}
+                </div>
+              </div>
+
+              <div className="modal-actions">
+                <button className="close-modal-btn" onClick={handleCloseModal}>
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
 export default ViewShiftExchange;
+

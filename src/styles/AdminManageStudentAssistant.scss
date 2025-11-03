@@ -1,20 +1,21 @@
-// src/styles/AddStudentAssistant.scss
-.add-student-assistant-page {
+.manage-assistant-page {
   padding: 24px;
   max-width: 1200px;
   margin: 0 auto;
   background: #f9fafb;
   min-height: 100vh;
 
-  h1 {
+  h2 {
     font-size: 28px;
     margin-bottom: 8px;
     color: #1f2937;
+    text-align: center;
   }
 
   p {
     color: #6b7280;
     margin-bottom: 24px;
+    text-align: center;
   }
 
   .form-container {
@@ -22,8 +23,9 @@
     border-radius: 12px;
     padding: 24px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 24px;
 
-    h2 {
+    h3 {
       font-size: 20px;
       margin: 0 0 16px 0;
       color: #1f2937;
@@ -55,8 +57,8 @@
         transition: all 0.2s ease;
 
         &:focus {
-          outline: 2px solid #667eea;
-          border-color: #667eea;
+          outline: 2px solid #004E97;
+          border-color: #004E97;
         }
       }
 
@@ -66,8 +68,23 @@
       }
     }
 
+    .input-with-icon {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      input {
+        flex: 1;
+      }
+    }
+
+    .circular select {
+      border-radius: 9999px;
+      text-align: center;
+    }
+
     .submit-btn {
-      background: #667eea;
+      background: #004E97;
       color: white;
       border: none;
       border-radius: 8px;
@@ -81,7 +98,7 @@
       gap: 8px;
 
       &:hover {
-        background: #5a67d8;
+        background: darken(#004E97, 10%);
       }
 
       &:disabled {
@@ -109,11 +126,82 @@
       border: 1px solid #ef4444;
     }
   }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
+
+    input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    .icon {
+      color: #555;
+    }
+  }
+
+  .assistant-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+    th,
+    td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background-color: #eaf3ff;
+      color: #333;
+    }
+
+    tr:hover {
+      background-color: #f5f9ff;
+    }
+
+    .remove-btn {
+      background: #004E97;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background: darken(#004E97, 10%);
+      }
+    }
+
+    .no-data {
+      text-align: center;
+      padding: 1.5rem;
+      color: #777;
+    }
+  }
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .add-student-assistant-page {
+  .manage-assistant-page {
     padding: 16px;
   }
 

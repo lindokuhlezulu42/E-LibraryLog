@@ -1,16 +1,20 @@
 // src/components/AdminLayout.jsx
-import React from 'react';
-import AdminSidebar from './AdminSidebar';
+import React, { useState } from "react";
+import AdminSidebar from "./AdminSidebar";
+import "../styles/AdminLayout.scss";
 
 function AdminLayout({ children }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
   return (
-    <div style={{ display: 'flex' }}>
-      {/* Pass isOpen={true} to show sidebar text */}
-      <AdminSidebar isOpen={true} />
-      
-      <main style={{ flex: 1, padding: '20px' }}>
-        {children}
-      </main>
+    <div className={`admin-layout ${isSidebarOpen ? "" : "sidebar-closed"}`}>
+      {/* Sidebar */}
+      <AdminSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+
+      {/* Main content */}
+      <main className="admin-main">{children}</main>
     </div>
   );
 }

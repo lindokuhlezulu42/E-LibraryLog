@@ -1,24 +1,19 @@
 .login-page {
-  background: rgb(221, 247, 249); // light gray background
+background: linear-gradient(120deg, #00264d, #004080);
+
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 40px 20px;
 
-  // Remove all shadows by default
-  * {
-    box-shadow: none !important;
-  }
-
-  // Shadow container for the whole content
   .shadow-container {
     background: #ffffff;
     padding: 40px 30px;
     border-radius: 16px;
     max-width: 500px;
     width: 100%;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7); // ✅ Global shadow
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,7 +34,7 @@
     .app-title {
       font-size: 36px;
       font-weight: 700;
-      color: rgb(49, 47, 47);
+      color: #004E97; // Updated blue
       margin: 10px 0;
     }
 
@@ -51,7 +46,7 @@
   }
 
   .login-card {
-    background: transparent; // No need for background here anymore
+    background: transparent;
     border-radius: 12px;
     padding: 0;
     width: 100%;
@@ -89,7 +84,7 @@
         padding: 12px 16px;
         gap: 10px;
         border: 1px solid #cbd5e1;
-        position: relative; // To position toggle button inside
+        position: relative;
 
         svg {
           flex-shrink: 0;
@@ -109,7 +104,6 @@
           }
         }
 
-        // Password toggle button
         .password-toggle-btn {
           position: absolute;
           right: 16px;
@@ -126,7 +120,6 @@
             color: #1e293b;
           }
 
-          /* Remove focus outline & shadow */
           outline: none;
           box-shadow: none;
 
@@ -140,7 +133,7 @@
 
     .sign-in-btn {
       width: 100%;
-      background: #3b82f6;
+      background: #004E97; // Updated blue
       color: white;
       border: none;
       padding: 12px;
@@ -151,7 +144,7 @@
       transition: background 0.2s ease;
 
       &:hover {
-        background: #2563eb;
+        background: #003a6b; // Slightly darker blue for hover
       }
     }
   }

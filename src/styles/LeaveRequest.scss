@@ -1,24 +1,39 @@
 .leave-request-page {
-  padding: 32px;
+  padding: 28px;
   max-width: 1200px;
   margin: 0 auto;
   background: #f9fafb;
   min-height: 100vh;
 
-  h1 { font-size: 32px; margin-bottom: 12px; color: #1f2937; }
-  p { font-size: 16px; color: #6b7280; margin-bottom: 28px; }
+  // 👇 Move the entire section slightly up
+  margin-top: -20px;
+
+  h1 {
+    font-size: 34px;
+    margin-bottom: 8px;
+    color: #1f2937;
+  }
+
+  p {
+    font-size: 16px;
+    color: #6b7280;
+    margin-bottom: 24px;
+  }
 
   .request-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 28px;
+    gap: 32px;
   }
 
-  .new-request-card, .history-card {
+  .new-request-card,
+  .history-card {
     background: white;
-    border-radius: 14px;
-    padding: 28px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    border-radius: 16px;
+    padding: 32px;
+
+    // 👇 Make shadow slightly deeper for more emphasis
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 
     h2 {
       font-size: 20px;
@@ -29,44 +44,226 @@
     }
   }
 
-  .form-group { display: flex; flex-direction: column; gap: 10px;
-    label { font-size: 15px; color: #374151; font-weight: 500; }
-    input, textarea { padding: 12px; border-radius: 10px; font-size: 15px; border: 1px solid #d1d5db;
-      &:focus { outline: 2px solid #3B82F6; border-color: #3B82F6; }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    label {
+      font-size: 15px;
+      color: #374151;
+      font-weight: 500;
     }
-    textarea { resize: vertical; }
+
+    input,
+    textarea,
+    select {
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 15px;
+      border: 1px solid #d1d5db;
+      background: #fff;
+      transition: all 0.2s ease;
+
+      &:focus {
+        outline: 2px solid #3b82f6;
+        border-color: #3b82f6;
+      }
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    // 👇 Specific styling for Leave Type dropdown
+    select {
+      appearance: none; // Remove default arrow styling
+      cursor: pointer;
+
+      &:hover {
+        border-color: #3b82f6;
+      }
+    }
+  }
+
+  /* 🩺 Upload Sick Note Section */
+  .upload-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #374151;
+
+      svg {
+        color: #2563eb; // Matches the accent blue
+      }
+    }
+
+    input[type="file"] {
+      padding: 12px;
+      border: 2px dashed #cbd5e1;
+      border-radius: 10px;
+      background: #f9fafb;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        border-color: #3b82f6;
+        background: #f3f4f6;
+      }
+
+      &:focus {
+        outline: 2px solid #3b82f6;
+        border-color: #3b82f6;
+      }
+    }
+
+    .file-name {
+      font-size: 14px;
+      color: #6b7280;
+      font-style: italic;
+    }
   }
 
   .submit-request-btn {
-    background: #3B82F6; color: white; font-weight: 600;
-    padding: 14px; border-radius: 10px; font-size: 16px;
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    cursor: pointer; transition: all 0.2s ease;
-    &:hover { background: #2563eb; }
-    svg { width: 20px; height: 20px; }
-  }
+    background: #3B82F6;
+    color: white;
+    font-weight: 600;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
 
-  .requests-list { display: flex; flex-direction: column; gap: 18px; }
-  .request-item { background: #f8fafc; border-radius: 10px; padding: 18px; border-left: 4px solid transparent; }
-  .request-item.pending { border-left-color: #3B82F6; }
-  .request-item.approved { border-left-color: #3B82F6; }
+    &:hover {
+      background: #2867c5;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
+    }
 
-  .request-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
-    .date-info { display: flex; align-items: center; gap: 8px; color: #1f2937; font-weight: 500; svg { width: 18px; height: 18px; } }
-    .reason-text { flex: 1; font-size: 15px; color: #6b7280; }
-    .action-buttons { display: flex; align-items: center; gap: 8px;
-      .cancel-btn { background: transparent; color: #dc2626; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-weight: 500; transition: all 0.2s ease; &:hover { background: #fee2e2; } }
-      .status-badge.approved { background: #d1fae5; color: #059669; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 500; }
+    svg {
+      width: 20px;
+      height: 20px;
     }
   }
 
-  .status { margin-top: 18px; padding: 14px; border-radius: 10px; font-weight: 600; font-size: 16px;
-    &.success { background: #d1fae5; color: #059669; border: 1px solid #10b981; }
-    &.error { background: #fee2e2; color: #dc2626; border: 1px solid #ef4444; }
+  .requests-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .request-item {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 18px;
+    border-left: 4px solid transparent;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  .request-item.pending {
+    border-left-color: #3b82f6;
+  }
+
+  .request-item.approved {
+    border-left-color: #10b981;
+  }
+
+  .request-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+
+    .date-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #1f2937;
+      font-weight: 500;
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    .reason-text {
+      flex: 1;
+      font-size: 15px;
+      color: #6b7280;
+    }
+
+    .action-buttons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .cancel-btn {
+        background: transparent;
+        color: #dc2626;
+        border: none;
+        padding: 4px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #fee2e2;
+        }
+      }
+
+      .status-badge.approved {
+        background: #d1fae5;
+        color: #059669;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .status {
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+
+    &.success {
+      background: #d1fae5;
+      color: #059669;
+      border: 1px solid #10b981;
+    }
+
+    &.error {
+      background: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #ef4444;
+    }
   }
 }
 
 @media (max-width: 768px) {
-  .request-container { grid-template-columns: 1fr; }
-  .leave-request-page { padding: 20px; }
+  .request-container {
+    grid-template-columns: 1fr;
+  }
+
+  .leave-request-page {
+    padding: 20px;
+    margin-top: 0;
+  }
 }

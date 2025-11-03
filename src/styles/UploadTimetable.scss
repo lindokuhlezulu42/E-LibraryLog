@@ -1,4 +1,3 @@
-/* src/styles/UploadTimetable.scss */
 .upload-page {
   padding: 40px;
   max-width: 850px;
@@ -10,7 +9,7 @@
   h1 {
     font-size: 30px;
     margin-bottom: 8px;
-    color: #1e3a8a; /* dark blue text */
+    color: #004E97; /* dark blue text */
     text-align: center;
   }
 
@@ -22,17 +21,17 @@
 
   .upload-card {
     background: white;
-    border: 3px dashed #3b82f6;
+    border: 3px dashed #004E97;
     border-radius: 16px;
     padding: 50px 24px;
     text-align: center;
     margin-bottom: 32px;
     cursor: pointer;
     transition: all 0.25s ease;
-    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 78, 151, 0.1);
 
     &:hover {
-      border-color: #2563eb;
+      border-color: #004E97;
       background: #eff6ff;
       transform: translateY(-2px);
     }
@@ -41,13 +40,13 @@
       display: flex;
       justify-content: center;
       margin-bottom: 16px;
-      color: #3b82f6;
+      color: #004E97;
     }
 
     h3 {
       font-size: 20px;
       margin-bottom: 8px;
-      color: #1e3a8a;
+      color: #004E97;
     }
 
     .supported-formats {
@@ -58,7 +57,7 @@
 
     .choose-file-btn {
       display: inline-block;
-      background: #3b82f6;
+      background: #004E97;
       color: white;
       padding: 10px 20px;
       border-radius: 10px;
@@ -67,7 +66,7 @@
       transition: all 0.25s ease;
 
       &:hover {
-        background: #2563eb;
+        background: #004E97;
       }
 
       input[type="file"] {
@@ -78,19 +77,41 @@
         cursor: pointer;
       }
     }
+
+    .selected-file {
+      margin-top: 16px;
+      font-size: 15px;
+      color: #475569;
+    }
+
+    .upload-btn {
+      margin-top: 16px;
+      background: #004E97;
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 10px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.25s ease;
+
+      &:hover {
+        background: #003a75;
+      }
+    }
   }
 
   .guidelines-card {
     background: white;
     border-radius: 12px;
     padding: 24px;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
-    border-left: 5px solid #3b82f6;
+    box-shadow: 0 2px 8px rgba(0, 78, 151, 0.1);
+    border-left: 5px solid #004E97;
 
     h3 {
       font-size: 18px;
       margin-bottom: 12px;
-      color: #1e3a8a;
+      color: #004E97;
     }
 
     ul {
@@ -108,7 +129,7 @@
         &:before {
           content: "✔";
           margin-right: 8px;
-          color: #3b82f6;
+          color: #004E97;
         }
       }
     }
@@ -125,8 +146,8 @@
 
     &.success {
       background: #dbeafe;
-      color: #2563eb;
-      border: 1px solid #3b82f6;
+      color: #004E97;
+      border: 1px solid #004E97;
     }
 
     &.error {

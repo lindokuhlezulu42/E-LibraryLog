@@ -1,5 +1,3 @@
-// src/styles/MonthlyReport.scss
-
 .monthly-report-page {
   padding: 24px;
   background: #f8fafc;
@@ -25,7 +23,7 @@
     }
 
     .download-btn {
-      background: #3b82f6;
+      background: #004E97; // Updated blue
       color: white;
       border: none;
       border-radius: 8px;
@@ -38,7 +36,7 @@
       transition: background 0.2s ease;
 
       &:hover {
-        background: #2563eb;
+        background: #003a6b; // Slightly darker blue for hover
       }
     }
   }
@@ -171,7 +169,7 @@
 
         &::before {
           content: "•";
-          color: #3b82f6;
+          color: #004E97; // Updated blue
           font-weight: bold;
           font-size: 16px;
         }

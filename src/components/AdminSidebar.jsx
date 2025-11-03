@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   Calendar,
   Home,
@@ -7,70 +7,73 @@ import {
   ArrowLeftRight,
   UserPlus,
   LogOut,
-  AlertTriangle, // ✅ New icon for Report Disruption
+  AlertTriangle,
+  CalendarCheck2,
+  Users,
+  Bell,
+  Clock,
+  FileText,
+  ToggleLeft,
+  ToggleRight,
 } from "lucide-react";
 import "../styles/AdminSidebar.scss";
 
-function AdminSidebar({ isOpen }) {
+function AdminSidebar({ isOpen, toggleSidebar }) {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate("/");
+  };
+
+  const menuItems = [
+    { name: "Dashboard", path: "/admin", icon: <Home size={18} /> },
+    { name: "Schedule", path: "/admin/view-schedules", icon: <ClipboardList size={18} /> },
+    { name: "View Leaves", path: "/admin/view-leaves", icon: <CalendarCheck2 size={18} /> },
+    { name: "Shift Exchange", path: "/admin/view-shift-exchanges", icon: <ArrowLeftRight size={18} /> },
+    
+    { name: "Report Disruption", path: "/admin/disruption", icon: <AlertTriangle size={18} /> },
+    { name: "Manage Student Assistant", path: "/admin/manage-student-assistants", icon: <Users size={18} /> },
+    { name: "Notifications", path: "/admin/notifications", icon: <Bell size={18} /> },
+    { name: "Total Hours Worked", path: "/admin/student-assistant-hours", icon: <Clock size={18} /> },
+    { name: "Generate Report", path: "/admin/generate-report", icon: <FileText size={18} /> },
+  ];
+
   return (
     <aside className={`admin-sidebar ${isOpen ? "expanded" : "collapsed"}`}>
-      {/* Logo Section */}
       <div className="logo-section">
-        <div className="logo-icon">
-          <Calendar size={32} color="#fff" />
-        </div>
+        <button
+          className="toggle-btn"
+          onClick={toggleSidebar}
+          title={isOpen ? "Collapse" : "Expand"}
+        >
+          {isOpen ? <ToggleLeft /> : <ToggleRight />}
+        </button>
         {isOpen && (
           <div className="logo-text">
-            <h2>E-LibraryLog</h2>
-            <p>Admin Dashboard</p>
+            <h2>Admin Dashboard</h2>
+           
           </div>
         )}
       </div>
 
-      {/* Navigation */}
       <nav className="sidebar-menu">
         <ul>
-          <li>
-            <NavLink to="/admin" className="nav-link">
-              <Home size={18} />
-              {isOpen && <span>Dashboard</span>}
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink to="/admin/view-schedules" className="nav-link">
-              <ClipboardList size={18} />
-              {isOpen && <span>Schedule</span>}
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink to="/admin/view-shift-exchanges" className="nav-link">
-              <ArrowLeftRight size={18} />
-              {isOpen && <span>Shift Exchange</span>}
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink to="/admin/students" className="nav-link">
-              <UserPlus size={18} />
-              {isOpen && <span>Add Student Assistant</span>}
-            </NavLink>
-          </li>
-
-          {/* ✅ New Report Disruption Section */}
-          <li>
-            <NavLink to="/admin/disruption" className="nav-link">
-              <AlertTriangle size={18} />
-              {isOpen && <span>Report Disruption</span>}
-            </NavLink>
-          </li>
+          {menuItems.map((item) => (
+            <li key={item.path}>
+              <NavLink
+                to={item.path}
+                className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+              >
+                {item.icon}
+                {isOpen && <span>{item.name}</span>}
+              </NavLink>
+            </li>
+          ))}
         </ul>
       </nav>
 
-      {/* Logout */}
       <div className="logout-section">
-        <button className="logout-btn">
+        <button className="logout-btn" onClick={handleLogout}>
           <LogOut size={18} />
           {isOpen && <span>Logout</span>}
         </button>

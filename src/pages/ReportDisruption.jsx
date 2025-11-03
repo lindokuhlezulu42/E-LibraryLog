@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../styles/ReportDisruption.scss";
 import { AlertTriangle, MapPin, Send } from "lucide-react";
+import { ReportContext } from "../context/ReportContext";
 
 function ReportDisruption() {
   const [form, setForm] = useState({
@@ -10,13 +11,13 @@ function ReportDisruption() {
     description: "",
   });
 
-  const [submittedReport, setSubmittedReport] = useState(null); // store the last submitted report
+  const { addReport } = useContext(ReportContext); // ✅ access addReport
 
   const disturbanceTypes = [
-    "Noise Disturbance",
+    "Protest",
     "Technical Issue",
     "Maintenance Problem",
-    "Misconduct",
+    "Library renovation",
     "Other",
   ];
 
@@ -33,10 +34,27 @@ function ReportDisruption() {
       return;
     }
 
-    // Store the submitted report
-    setSubmittedReport(form);
+    // ✅ Add report to context
+    addReport(form);
 
-    alert("✅ Disruption report submitted successfully!");
+    // ✅ Send notification to students
+    const existingNotifications =
+      JSON.parse(localStorage.getItem("studentNotifications")) || [];
+    const newNotification = {
+      id: Date.now(),
+      title: "New Disruption Report",
+      message: `A new ${form.type} has been reported at ${form.location} on ${form.date}. Description: ${form.description}`,
+      timestamp: new Date().toLocaleString(),
+      read: false,
+    };
+    localStorage.setItem(
+      "studentNotifications",
+      JSON.stringify([newNotification, ...existingNotifications])
+    );
+
+    alert("✅ Disruption report submitted successfully! Students have been notified.");
+
+    // Reset form
     setForm({ date: "", location: "", type: "", description: "" });
   };
 
@@ -107,16 +125,6 @@ function ReportDisruption() {
             <Send size={18} /> Submit Report
           </button>
         </form>
-
-        {submittedReport && (
-          <div className="submitted-report">
-            <h3>📄 Submitted Report</h3>
-            <p><strong>Date:</strong> {submittedReport.date}</p>
-            <p><strong>Location:</strong> {submittedReport.location}</p>
-            <p><strong>Type:</strong> {submittedReport.type}</p>
-            <p><strong>Description:</strong> {submittedReport.description}</p>
-          </div>
-        )}
       </div>
     </div>
   );

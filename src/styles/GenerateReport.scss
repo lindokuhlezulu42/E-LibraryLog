@@ -1,0 +1,124 @@
+.monthly-report-page {
+  padding: 2rem;
+
+  .report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+      font-size: 2rem;
+    }
+  }
+
+  .summary-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin: 2rem 0;
+
+    .stat-card {
+      background: #f9fafb;
+      padding: 1rem;
+      border-radius: 8px;
+      flex: 1 1 200px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+
+      .label {
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 0.5rem;
+      }
+
+      .value {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .description {
+        font-size: 0.875rem;
+        color: #6b7280;
+
+        &.green {
+          color: #16a34a;
+        }
+      }
+    }
+  }
+
+  .performance-section {
+    h2 {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+
+      th, td {
+        padding: 0.75rem;
+        border: 1px solid #e5e7eb;
+        text-align: left;
+      }
+
+      th {
+        background: #f3f4f6;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f9fafb;
+      }
+    }
+  }
+
+  .date-range {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+
+    .date-input {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+      }
+
+      input[type="date"] {
+        padding: 0.5rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .download-section {
+    margin-top: 1.5rem;
+    text-align: right;
+
+    .download-btn {
+    background: #004E97;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      &:hover {
+        background: #003b73;
+      }
+    }
+  }
+}

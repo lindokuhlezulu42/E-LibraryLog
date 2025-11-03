@@ -1,57 +1,76 @@
-// src/pages/UploadTimetable.jsx
 import React, { useState } from "react";
-import axios from "axios";
 import { Upload } from "lucide-react";
 import "../styles/UploadTimetable.scss";
 
 function UploadTimetable() {
   const [file, setFile] = useState(null);
   const [status, setStatus] = useState("");
+  const [isDragging, setIsDragging] = useState(false);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       setFile(selectedFile);
-      validateAndUpload(selectedFile);
+      setStatus("");
     }
   };
 
-  const validateAndUpload = async (file) => {
-    const allowed = ["pdf", "jpg", "png", "xlsx", "xls", "csv"];
-    const ext = file.name.split(".").pop().toLowerCase();
-    if (!allowed.includes(ext)) {
-      return setStatus("❌ Invalid file type. Allowed: PDF, JPG, PNG, XLSX, CSV");
+  const handleUpload = () => {
+    if (!file) {
+      return setStatus("❌ Please select a file first.");
     }
 
-    if (file.size > 10 * 1024 * 1024) { // 10MB
+    const allowedExtensions = ["pdf", "jpg", "png", "jpeg", "xlsx", "xls", "csv"];
+    const ext = file.name.split(".").pop().toLowerCase();
+
+    if (!allowedExtensions.includes(ext)) {
+      return setStatus(
+        "❌ Invalid file type. Allowed: PDF, JPG, PNG, XLSX, CSV"
+      );
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
       return setStatus("❌ File too large. Maximum size: 10MB");
     }
 
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      await axios.post("http://localhost:8080/api/timetable/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
+    // Simulate upload success
+    setTimeout(() => {
       setStatus("✅ Timetable uploaded successfully!");
-    } catch (err) {
-      console.error(err);
-      setStatus("❌ Upload failed. Try again later.");
-    }
+
+      // Save admin notification in localStorage
+      const adminNotifications =
+        JSON.parse(localStorage.getItem("adminNotifications")) || [];
+      const newAdminNotification = {
+        id: Date.now(),
+        message: `Student uploaded a new timetable: ${file.name}`,
+        timestamp: new Date().toLocaleString(),
+        read: false,
+      };
+      localStorage.setItem(
+        "adminNotifications",
+        JSON.stringify([newAdminNotification, ...adminNotifications])
+      );
+
+      setFile(null);
+    }, 600);
   };
 
   const handleDragOver = (e) => {
     e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
   };
 
   const handleDrop = (e) => {
     e.preventDefault();
+    setIsDragging(false);
     const droppedFile = e.dataTransfer.files[0];
     if (droppedFile) {
       setFile(droppedFile);
-      validateAndUpload(droppedFile);
+      setStatus("");
     }
   };
 
@@ -60,38 +79,52 @@ function UploadTimetable() {
       <h1>Upload Timetable</h1>
       <p>Upload your class timetable for better schedule management</p>
 
-      {/* Upload Card */}
-      <div 
-        className="upload-card"
+      <div
+        className={`upload-card ${isDragging ? "dragging" : ""}`}
         onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
         <div className="upload-icon">
-          <Upload size={32} color="#667eea" />
+          <Upload size={32} />
         </div>
         <h3>Drop your timetable here</h3>
-        <p className="supported-formats">Supported formats: PDF, Excel, CSV, Image</p>
-        
+        <p className="supported-formats">
+          Supported formats: PDF, Excel, CSV, Image
+        </p>
+
         <label className="choose-file-btn">
           Choose File
-          <input type="file" onChange={handleFileChange} accept=".pdf,.jpg,.png,.jpeg,.xlsx,.xls,.csv" />
+          <input
+            type="file"
+            onChange={handleFileChange}
+            accept=".pdf,.jpg,.png,.jpeg,.xlsx,.xls,.csv"
+          />
         </label>
+
+        <button className="upload-btn" onClick={handleUpload}>
+          Upload
+        </button>
+
+        {file && <p className="selected-file">Selected file: {file.name}</p>}
       </div>
 
-      {/* Guidelines */}
       <div className="guidelines-card">
         <h3>Upload Guidelines:</h3>
         <ul>
           <li>Ensure your timetable is clear and readable</li>
           <li>Include all class times, locations, and course codes</li>
           <li>Maximum file size: 10MB</li>
-          <li>The system will automatically parse your timetable</li>
+          <li>The system will automatically notify the admin of your upload</li>
           <li>You can update your timetable anytime</li>
         </ul>
       </div>
 
-      {/* Status Message */}
-      {status && <p className={`status ${status.startsWith('✅') ? 'success' : 'error'}`}>{status}</p>}
+      {status && (
+        <p className={`status ${status.startsWith("✅") ? "success" : "error"}`}>
+          {status}
+        </p>
+      )}
     </div>
   );
 }

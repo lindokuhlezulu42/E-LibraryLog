@@ -114,18 +114,7 @@ function MonthlyReport() {
         </div>
       </section>
 
-      {/* Monthly Summary */}
-      <section className="monthly-summary">
-        <h2 className="section-title">Monthly Summary</h2>
-        <p className="section-subtitle">Key highlights and observations</p>
-
-        <ul className="summary-list">
-          <li>Overall attendance was excellent with an average coverage rate of 94.5%</li>
-          <li>Sarah Williams had the highest contribution with 168 hours and perfect attendance</li>
-          <li>9 total leave days were approved across all assistants</li>
-          <li>5 shift exchange requests were processed successfully</li>
-        </ul>
-      </section>
+     
     </div>
   );
 }
